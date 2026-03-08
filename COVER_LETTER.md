@@ -1,6 +1,6 @@
 Hi,
 
-The Cosmic-Noir aesthetic isn't just a vibe requirement — it shapes the entire interaction model. Coded up a version of your singularity platform to show how I'd handle it: {VERCEL_URL}
+The Cosmic-Noir aesthetic isn't just a vibe requirement — it shapes the entire interaction model. Coded up a version of your singularity platform to show how I'd handle it: https://singularity-platform.vercel.app
 
 The demo covers immersive 3D navigation, the Vault system with layered access states, and the dark visual language you described. Also shipped Sports Vision: AR scan UI with detection overlays in the browser.
 
