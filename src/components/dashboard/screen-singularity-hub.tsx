@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import type { DashboardStats } from "@/lib/types";
+import { ParticleNetworkCanvas } from "./particle-network-canvas";
 
 // ── Animated number counter (count up on viewport entry) ────────────────────
 function useCountUp(target: number, duration = 1200) {
@@ -105,26 +106,6 @@ function FloatingKPI({
   );
 }
 
-// ── Particle dot (pure CSS, no JS animation library) ────────────────────────
-function ParticleDot({
-  style,
-}: {
-  style: React.CSSProperties;
-}) {
-  return (
-    <div
-      className="absolute rounded-full pointer-events-none"
-      style={{
-        width: "2px",
-        height: "2px",
-        background: "oklch(0.62 0.18 185 / 0.6)",
-        boxShadow: "0 0 4px oklch(0.62 0.18 185 / 0.5)",
-        ...style,
-      }}
-    />
-  );
-}
-
 // ── Main Screen ──────────────────────────────────────────────────────────────
 export function SingularityHubScreen({
   stats,
@@ -143,30 +124,6 @@ export function SingularityHubScreen({
     return () => clearTimeout(t);
   }, [stats.convergenceIndex]);
 
-  // Deterministic particle positions (avoids hydration mismatch)
-  const particles = [
-    { top: "12%", left: "8%",   animationDelay: "0s",    animationDuration: "8s"  },
-    { top: "22%", left: "18%",  animationDelay: "1.2s",  animationDuration: "10s" },
-    { top: "35%", left: "5%",   animationDelay: "2.4s",  animationDuration: "7s"  },
-    { top: "48%", left: "14%",  animationDelay: "0.6s",  animationDuration: "9s"  },
-    { top: "62%", left: "7%",   animationDelay: "3.1s",  animationDuration: "11s" },
-    { top: "75%", left: "19%",  animationDelay: "1.8s",  animationDuration: "8s"  },
-    { top: "88%", left: "11%",  animationDelay: "0.3s",  animationDuration: "6s"  },
-    { top: "15%", left: "85%",  animationDelay: "2.0s",  animationDuration: "9s"  },
-    { top: "28%", left: "91%",  animationDelay: "0.9s",  animationDuration: "7s"  },
-    { top: "44%", left: "88%",  animationDelay: "3.5s",  animationDuration: "10s" },
-    { top: "58%", left: "93%",  animationDelay: "1.5s",  animationDuration: "8s"  },
-    { top: "71%", left: "86%",  animationDelay: "0.1s",  animationDuration: "11s" },
-    { top: "82%", left: "90%",  animationDelay: "2.7s",  animationDuration: "7s"  },
-    { top: "8%",  left: "42%",  animationDelay: "1.1s",  animationDuration: "9s"  },
-    { top: "92%", left: "55%",  animationDelay: "3.8s",  animationDuration: "8s"  },
-    { top: "5%",  left: "68%",  animationDelay: "0.4s",  animationDuration: "10s" },
-    { top: "96%", left: "32%",  animationDelay: "2.2s",  animationDuration: "7s"  },
-    { top: "18%", left: "57%",  animationDelay: "4.0s",  animationDuration: "6s"  },
-    { top: "67%", left: "45%",  animationDelay: "1.6s",  animationDuration: "12s" },
-    { top: "53%", left: "72%",  animationDelay: "2.9s",  animationDuration: "9s"  },
-  ];
-
   const kpis = [
     { label: "Active Nodes",       value: stats.activeNodes,          unit: "synchronized" },
     { label: "Network Coherence",  value: Math.round(stats.networkCoherence * 10), unit: "global mesh" },
@@ -178,48 +135,19 @@ export function SingularityHubScreen({
       className="relative flex flex-col items-center justify-center overflow-hidden bg-background"
       style={{ minHeight: "min(580px, 63vh)" }}
     >
-      {/* ── Radial ambient gradient ── */}
+      {/* ── 3D Particle Network (Canvas) ── */}
+      {mounted && <ParticleNetworkCanvas particleCount={200} interactive />}
+
+      {/* ── Radial ambient gradient overlay (depth illusion) ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse 60% 50% at 50% 40%, oklch(0.62 0.18 185 / 0.06) 0%, transparent 70%),
-            radial-gradient(ellipse 40% 30% at 25% 70%, oklch(0.55 0.20 295 / 0.04) 0%, transparent 60%),
-            radial-gradient(ellipse 40% 30% at 75% 25%, oklch(0.55 0.20 295 / 0.03) 0%, transparent 60%)
+            radial-gradient(ellipse 50% 45% at 50% 45%, transparent 0%, oklch(0.06 0.02 185 / 0.5) 100%),
+            radial-gradient(ellipse 30% 25% at 50% 45%, oklch(0.62 0.18 185 / 0.04) 0%, transparent 70%)
           `,
         }}
       />
-
-      {/* ── Particle field ── */}
-      {mounted && particles.map((p, i) => (
-        <ParticleDot
-          key={i}
-          style={{
-            top: p.top,
-            left: p.left,
-            animation: `singularity-float ${p.animationDuration} ease-in-out infinite alternate`,
-            animationDelay: p.animationDelay,
-          }}
-        />
-      ))}
-
-      {/* ── Node network SVG lines (decorative) ── */}
-      <svg
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ opacity: 0.12 }}
-        aria-hidden="true"
-      >
-        <line x1="8%" y1="12%" x2="18%" y2="22%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" />
-        <line x1="18%" y1="22%" x2="5%" y2="35%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" />
-        <line x1="85%" y1="15%" x2="91%" y2="28%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" />
-        <line x1="91%" y1="28%" x2="88%" y2="44%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" />
-        <line x1="42%" y1="8%" x2="68%" y2="5%" stroke="oklch(0.55 0.20 295)" strokeWidth="0.5" />
-        <line x1="8%" y1="12%" x2="42%" y2="8%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" strokeDasharray="2 4" />
-        <line x1="85%" y1="15%" x2="68%" y2="5%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" strokeDasharray="2 4" />
-        <line x1="19%" y1="75%" x2="11%" y2="88%" stroke="oklch(0.55 0.20 295)" strokeWidth="0.5" />
-        <line x1="86%" y1="71%" x2="90%" y2="82%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" />
-        <line x1="45%" y1="67%" x2="72%" y2="53%" stroke="oklch(0.62 0.18 185)" strokeWidth="0.5" strokeDasharray="2 4" />
-      </svg>
 
       {/* ── Floating KPI cards — top row ── */}
       <div className="absolute top-6 left-1/2 -translate-x-1/2 flex gap-3 z-10">
