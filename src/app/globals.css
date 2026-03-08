@@ -54,8 +54,8 @@
   --color-sidebar-ring: var(--sidebar-ring);
 
   /* Fonts */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-space-grotesk);
+  --font-mono: var(--font-jetbrains-mono);
 
   /* Radius scale — derived from single --radius token */
   --radius-sm: calc(var(--radius) - 4px);
@@ -85,75 +85,69 @@
 }
 
 /* ============================================================
-   :root — Default token values (Linear / Minimal aesthetic baseline).
-   Layout Builder overrides color tokens per domain.
-   Aesthetic [data-theme] blocks below override all other tokens.
+   :root — AESTHETIC: dark-premium / DOMAIN: immersive-3d-platform
+   Creative rationale: Cinematic near-black canvas with electric teal accents
+   and violet nebula secondary — matches the high-end 3D/XR platform aesthetic
+   used by competitors like NVIDIA Omniverse and Epic Megaverse.
    ============================================================ */
 :root {
   /* ── Border Radius ───────────────────────────────────────────
-     Profiles: sharp = 0.25rem | standard = 0.5rem | rounded = 0.75rem
-     Layout Builder sets to match domain personality.            */
+     medium-sharp: 0.5rem standard, 0.375rem inputs, 0.25rem badges */
   --radius: 0.5rem;
 
-  /* ── Base Surfaces ───────────────────────────────────────── */
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --surface-hover: oklch(0.96 0 0);
-  --surface-active: oklch(0.94 0 0);
-
-  /* ── Primary Color ───────────────────────────────────────────
-     !! OVERRIDE REQUIRED — Layout Builder must replace --primary and
-        --primary-h with domain-appropriate oklch values.
-        See the Creative Brief's colorDirection for the target color.
-        QA rejects builds where --primary stays oklch(0.205 0 0). !! */
-  --primary: oklch(0.205 0 0);
+  /* ── Primary Color ─────────────────────────────────────────── */
+  --primary: oklch(0.62 0.18 185);         /* deep electric teal */
   --primary-foreground: oklch(0.985 0 0);
-  --primary-h: 270; /* Integer hue extracted from --primary */
+  --primary-h: 185;                        /* hue integer extracted from --primary */
+
+  /* ── Base Surfaces (dark-premium dark canvas) ─────────────── */
+  --background: oklch(0.08 0.02 250);      /* near-black with blue-violet undertone */
+  --foreground: oklch(0.92 0.01 250);      /* slightly cool off-white */
+  --card: oklch(0.12 0.02 250);            /* dark card surface */
+  --card-foreground: oklch(0.90 0.01 250);
+  --popover: oklch(0.12 0.02 250);
+  --popover-foreground: oklch(0.90 0.01 250);
+  --surface-hover: oklch(0.14 0.02 250);
+  --surface-active: oklch(0.16 0.02 250);
 
   /* ── Derived Color Tokens ────────────────────────────────── */
   --section-dark: oklch(0.10 0.02 var(--primary-h));
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.16 0.02 250);
+  --secondary-foreground: oklch(0.92 0 0);
+  --muted: oklch(0.16 0.02 250);
+  --muted-foreground: oklch(0.60 0 0);
+  --accent: oklch(0.55 0.20 295);          /* violet nebula — Vault-specific elements */
+  --accent-foreground: oklch(0.985 0 0);
 
   /* ── Semantic Colors ─────────────────────────────────────── */
-  --destructive: oklch(0.577 0.245 27.325);
-  --success: oklch(0.627 0.194 149.214);
+  --destructive: oklch(0.55 0.22 25);
+  --success: oklch(0.62 0.19 145);
   --success-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.769 0.188 70.08);
+  --warning: oklch(0.75 0.18 85);
   --warning-foreground: oklch(0.205 0 0);
 
   /* ── Borders & Inputs ────────────────────────────────────── */
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: oklch(0.62 0.18 185);
 
-  /* ── Chart Colors ────────────────────────────────────────────
-     Layout Builder harmonizes to primary hue. See design-system.md. */
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  /* ── Chart Colors (harmonized to teal hue 185 + violet 295 accent) ── */
+  --chart-1: oklch(0.62 0.18 185);         /* teal — primary */
+  --chart-2: oklch(0.55 0.20 295);         /* violet nebula — accent */
+  --chart-3: oklch(0.60 0.16 215);         /* blue-teal +30 */
+  --chart-4: oklch(0.58 0.15 155);         /* seafoam -30 */
+  --chart-5: oklch(0.65 0.14 265);         /* blue-violet +80 */
 
-  /* ── Sidebar Colors ──────────────────────────────────────────
-     After color override: --sidebar-primary and --sidebar-ring
-     should match --primary.                                     */
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
+  /* ── Sidebar Colors ──────────────────────────────────────────  */
+  --sidebar: oklch(0.06 0.02 270);         /* near-black sidebar bg */
+  --sidebar-foreground: oklch(0.85 0 0);
+  --sidebar-primary: oklch(0.62 0.18 185);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar-accent: oklch(0.14 0.02 250);
+  --sidebar-accent-foreground: oklch(0.90 0 0);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: oklch(0.62 0.18 185);
+  --sidebar-bg: oklch(0.06 0.02 270);
 
   /* ── Surface / Card Tokens ───────────────────────────────────
      Driven by [data-theme] aesthetic — not overridden per domain.
@@ -176,35 +170,23 @@
   --grid-gap: 1rem;
   --section-gap: 1.5rem;
 
-  /* ── Layout Tokens ───────────────────────────────────────────
-     Sidebar width presets:
-       Slim:     14rem — compact utility or data-dense apps
-       Standard: 16rem — default
-       Wide:     18rem — complex nav, ERP-style
-
-     Header height presets:
-       Compact:  2.75rem
-       Standard: 3.5rem                                           */
-  --sidebar-width: 16rem;
+  /* ── Layout Tokens (standard-airy density — generous void in dark environment) */
+  --sidebar-width: 14rem;               /* narrow for walkthrough format */
   --sidebar-collapsed-width: 4rem;
   --sidebar-width-mobile: 18rem;
   --header-height: 3.5rem;
-  --tab-bar-height: 49px;    /* 48px + 1px border */
+  --tab-bar-height: 49px;              /* 48px + 1px border */
   --content-padding: 1.5rem;
   --nav-item-py: 0.5rem;
 
-  /* Sidebar surface — override to tint sidebar by domain:
-     White (default): oklch(1 0 0)
-     Tinted:          oklch(0.985 0.008 var(--primary-h))
-     Subdued:         oklch(0.97 0.005 var(--primary-h))          */
-  --sidebar-bg: oklch(1 0 0);
-
-  /* Tab bar background — tint to primary hue subtly if desired */
-  --tab-bar-bg: var(--background);
+  /* Tab bar background — deep dark with subtle tint */
+  --tab-bar-bg: oklch(0.06 0.02 250);
 
   /* ── Typography Tokens ───────────────────────────────────── */
-  --font-display: var(--font-geist-sans);
-  --font-body: var(--font-geist-sans);
+  /* Motion character: theatrical-smooth (350-500ms screen transitions, 150ms micro-interactions) */
+  --transition-speed: 350ms;
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-space-grotesk);
   --heading-weight: 700;
   --heading-tracking: -0.025em;
   --heading-transform: none;
@@ -212,18 +194,17 @@
   --body-tracking: 0em;
   --body-leading: 1.625;
 
-  /* ── Motion Tokens ───────────────────────────────────────────
-     All transitions in components use these — never hardcode
-     duration-200+ or ease-in values directly.                   */
-  --dur-fast: 100ms;
-  --dur-normal: 150ms;
-  --dur-slow: 250ms;
-  --dur-deliberate: 400ms;
+  /* ── Motion Tokens (theatrical-smooth) ──────────────────────
+     Screen transitions: 350-500ms, micro-interactions: 150ms    */
+  --dur-fast: 150ms;
+  --dur-normal: 200ms;
+  --dur-slow: 350ms;
+  --dur-deliberate: 500ms;
   --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   --t-interactive: var(--dur-fast) var(--ease-snappy);
-  --t-page: var(--dur-normal) var(--ease-smooth);
+  --t-page: var(--dur-slow) var(--ease-smooth);
 
   /* ── Demo Format Frame Tokens ─────────────────────────────
      Defaults for sidebar-dashboard (no frame). Override per
@@ -247,45 +228,45 @@
 }
 
 /* ============================================================
-   .dark — Kept for shadcn/ui compatibility only.
-   Apps are light-only. Do NOT add a dark mode toggle.
+   .dark — Dark-premium IS the dark theme. These values mirror :root
+   so shadcn/ui components that check .dark also look correct.
    ============================================================ */
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
+  --background: oklch(0.08 0.02 250);
+  --foreground: oklch(0.92 0.01 250);
+  --card: oklch(0.12 0.02 250);
+  --card-foreground: oklch(0.90 0.01 250);
+  --popover: oklch(0.12 0.02 250);
+  --popover-foreground: oklch(0.90 0.01 250);
+  --primary: oklch(0.62 0.18 185);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.16 0.02 250);
+  --secondary-foreground: oklch(0.92 0 0);
+  --muted: oklch(0.16 0.02 250);
+  --muted-foreground: oklch(0.60 0 0);
+  --accent: oklch(0.55 0.20 295);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --success: oklch(0.696 0.17 162.48);
+  --destructive: oklch(0.55 0.22 25);
+  --success: oklch(0.62 0.19 145);
   --success-foreground: oklch(0.985 0 0);
-  --warning: oklch(0.769 0.188 70.08);
-  --warning-foreground: oklch(0.145 0 0);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --warning: oklch(0.75 0.18 85);
+  --warning-foreground: oklch(0.205 0 0);
+  --border: oklch(1 0 0 / 0.08);
+  --input: oklch(1 0 0 / 0.12);
+  --ring: oklch(0.62 0.18 185);
+  --chart-1: oklch(0.62 0.18 185);
+  --chart-2: oklch(0.55 0.20 295);
+  --chart-3: oklch(0.60 0.16 215);
+  --chart-4: oklch(0.58 0.15 155);
+  --chart-5: oklch(0.65 0.14 265);
+  --sidebar: oklch(0.06 0.02 270);
+  --sidebar-foreground: oklch(0.85 0 0);
+  --sidebar-primary: oklch(0.62 0.18 185);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar-accent: oklch(0.14 0.02 250);
+  --sidebar-accent-foreground: oklch(0.90 0 0);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: oklch(0.62 0.18 185);
 }
 
 /* ============================================================
@@ -429,49 +410,54 @@
   --t-interactive: var(--dur-fast) var(--ease-snappy);
 }
 
-/* ── 5. Dark Premium ─────────────────────────────────────────
-   Dark canvas, controlled accent light, exclusive feel.
-   Best for: AI/ML, cybersecurity, fintech trading, luxury tech.
-   Note: Layout Builder sets --primary to a vivid accent.
-         --primary-h must be set for derived dark surfaces.      */
+/* ── 5. Dark Premium — Singularity Platform ──────────────────
+   Cinematic near-black canvas with electric teal + violet nebula.
+   Domain: immersive-3d-platform. Mood: cinematic, atmospheric.
+   Signature: teal glow on hover, JetBrains Mono for IDs,
+   theatrical-smooth screen transitions (350-500ms).              */
 [data-theme="dark-premium"] {
-  --radius: 0.75rem;
-  --background: oklch(0.08 0.01 var(--primary-h, 250));
-  --foreground: oklch(0.92 0 0);
-  --card: oklch(0.12 0.01 var(--primary-h, 250));
-  --card-foreground: oklch(0.92 0 0);
-  --popover: oklch(0.12 0.01 var(--primary-h, 250));
-  --popover-foreground: oklch(0.92 0 0);
+  --radius: 0.5rem;
+  --background: oklch(0.08 0.02 250);
+  --foreground: oklch(0.92 0.01 250);
+  --card: oklch(0.12 0.02 250);
+  --card-foreground: oklch(0.90 0.01 250);
+  --popover: oklch(0.12 0.02 250);
+  --popover-foreground: oklch(0.90 0.01 250);
   --border: oklch(1 0 0 / 0.08);
   --input: oklch(1 0 0 / 0.12);
-  --ring: oklch(1 0 0 / 0.25);
-  --muted: oklch(0.16 0.01 var(--primary-h, 250));
+  --ring: oklch(0.62 0.18 185);
+  --muted: oklch(0.16 0.02 250);
   --muted-foreground: oklch(0.60 0 0);
-  --secondary: oklch(0.16 0.01 var(--primary-h, 250));
+  --secondary: oklch(0.16 0.02 250);
   --secondary-foreground: oklch(0.92 0 0);
-  --accent: oklch(0.16 0.02 var(--primary-h, 250));
-  --accent-foreground: oklch(0.92 0 0);
-  --sidebar: oklch(0.10 0.01 var(--primary-h, 250));
+  --accent: oklch(0.55 0.20 295);
+  --accent-foreground: oklch(0.985 0 0);
+  --sidebar: oklch(0.06 0.02 270);
   --sidebar-foreground: oklch(0.85 0 0);
   --sidebar-border: oklch(1 0 0 / 0.08);
-  --sidebar-bg: oklch(0.10 0.01 var(--primary-h, 250));
-  --section-dark: oklch(0.06 0.02 var(--primary-h, 250));
-  --surface-hover: oklch(1 0 0 / 0.05);
-  --surface-active: oklch(1 0 0 / 0.08);
+  --sidebar-bg: oklch(0.06 0.02 270);
+  --section-dark: oklch(0.05 0.02 185);
+  --surface-hover: oklch(0.14 0.02 250);
+  --surface-active: oklch(0.16 0.02 250);
   --card-border-width: 1px;
   --card-shadow: 0 0 0 1px oklch(1 0 0 / 0.06), inset 0 1px 0 oklch(1 0 0 / 0.08);
-  --card-shadow-hover: 0 0 0 1px oklch(1 0 0 / 0.12), 0 4px 16px oklch(0 0 0 / 0.30);
+  --card-shadow-hover: 0 0 0 1px oklch(0.62 0.18 185 / 0.3), 0 0 12px oklch(0.62 0.18 185 / 0.15), 0 4px 16px oklch(0 0 0 / 0.30);
   --card-hover-transform: none;
-  --page-padding: 2rem;
-  --content-padding: 2rem;
+  --page-padding: 1.5rem;
+  --content-padding: 1.5rem;
+  --card-padding: 1.5rem;
   --grid-gap: 1rem;
-  --section-gap: 2rem;
+  --section-gap: 1.5rem;
+  --nav-item-py: 0.5rem;
   --heading-weight: 600;
   --heading-tracking: -0.02em;
-  --dur-fast: 120ms;
+  --dur-fast: 150ms;
   --dur-normal: 200ms;
+  --dur-slow: 350ms;
+  --dur-deliberate: 500ms;
   --ease-snappy: cubic-bezier(0.16, 1, 0.3, 1);
   --t-interactive: var(--dur-fast) var(--ease-snappy);
+  --t-page: var(--dur-slow) var(--ease-smooth);
 }
 
 /* ── 6. Swiss / Typographic ──────────────────────────────────
@@ -830,9 +816,9 @@
 
 [data-theme="dark-premium"] [data-format="multi-screen-walkthrough"],
 [data-theme="retrofuturism"] [data-format="multi-screen-walkthrough"] {
-  --frame-border-color: oklch(0.25 0 0);
-  --frame-bg: oklch(0.12 0 0);
-  --frame-shadow: 0 20px 40px oklch(0 0 0 / 0.4);
+  --frame-border-color: oklch(0.62 0.18 185 / 0.25);
+  --frame-bg: oklch(0.10 0.02 250);
+  --frame-shadow: 0 20px 60px oklch(0 0 0 / 0.6), 0 0 40px oklch(0.62 0.18 185 / 0.08);
 }
 
 /* ============================================================
@@ -956,6 +942,50 @@
     padding: var(--content-padding, 1.5rem);
   }
 
+  /* ── Dark-Premium (Singularity) card styles ─────────────────
+     .dark-card — luminous glass panel with teal glow on hover.
+     Used across all Singularity walkthrough screens.            */
+  .dark-card {
+    background: oklch(1 0 0 / 0.04);
+    border: 1px solid oklch(1 0 0 / 0.08);
+    box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.06);
+    border-radius: var(--radius);
+    transition:
+      border-color var(--t-interactive),
+      box-shadow var(--t-interactive);
+  }
+  .dark-card:hover {
+    border-color: oklch(0.62 0.18 185 / 0.35);
+    box-shadow: 0 0 12px oklch(0.62 0.18 185 / 0.4), inset 0 1px 0 oklch(1 0 0 / 0.08);
+  }
+
+  /* ── Teal glow utility ───────────────────────────────────────
+     Apply to interactive elements needing the signature glow.   */
+  .teal-glow {
+    box-shadow: 0 0 12px oklch(0.62 0.18 185 / 0.4);
+  }
+  .teal-glow-hover:hover {
+    box-shadow: 0 0 16px oklch(0.62 0.18 185 / 0.5);
+  }
+
+  /* ── Vault violet accent ─────────────────────────────────────
+     For Vault-specific elements using the violet nebula accent.  */
+  .vault-glow {
+    box-shadow: 0 0 12px oklch(0.55 0.20 295 / 0.4);
+  }
+  .vault-glow-hover:hover {
+    box-shadow: 0 0 16px oklch(0.55 0.20 295 / 0.5);
+  }
+
+  /* ── Mono ID text ────────────────────────────────────────────
+     JetBrains Mono for all alphanumeric identifiers.            */
+  .mono-id {
+    font-family: var(--font-mono, var(--font-jetbrains-mono));
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: oklch(0.62 0.18 185);
+  }
+
   /* ── Neobrutalism / Brand-Forward press animation ─────────────
      Hard-shadow collapse on :active — physical press feedback.
      Only meaningful in aesthetics with offset box shadows.      */
@@ -967,6 +997,22 @@
     box-shadow: 2px 2px 0 oklch(0.10 0 0);
   }
 
+}
+
+/* ── Singularity — keyframe animations ───────────────────── */
+@keyframes fade-up-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up-in {
+  animation-name: fade-up-in;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes singularity-float {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.6; }
+  50%  { transform: translate(3px, -5px) scale(1.3); opacity: 1; }
+  100% { transform: translate(-2px, 4px) scale(0.8); opacity: 0.4; }
 }
 
 /* ── Frame utility classes ─────────────────────────────────── */

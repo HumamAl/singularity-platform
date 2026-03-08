@@ -1,83 +1,141 @@
-import type { Profile, PortfolioProject } from "@/lib/types";
+export const proposalData = {
+  hero: {
+    name: "Humam",
+    badge: "Built this demo for your project",
+    valueProp:
+      "I build immersive 3D platforms end-to-end — the WebGL environment, the encrypted Vault architecture, the real-time Firebase sync, and the Cosmic-Noir UI system holding it all together.",
+    stats: [
+      { value: "24+", label: "Projects Shipped" },
+      { value: "< 48hr", label: "Demo Turnaround" },
+      { value: "15+", label: "Industries" },
+    ],
+  },
 
-export const profile: Profile = {
-  name: "Humam",
-  tagline: "Full-stack developer specializing in Next.js applications",
-  bio: "I build MVPs and production apps that solve real operational problems — CRM systems, fleet management platforms, AI-powered dashboards, and e-commerce tools. My approach is straightforward: understand the business need, build something that works, and ship it fast.",
+  portfolioProjects: [
+    {
+      id: "sports-vision",
+      name: "Sports Vision MVP",
+      description:
+        "Real-time AR-style scan UI with object detection overlays, confidence scoring, and spatial accuracy visualization — delivered as a browser-based MVP.",
+      outcome:
+        "AR-style scan UI with detection overlays, confidence scores, and accuracy visualization — delivered as a browser-based MVP",
+      tech: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Recharts"],
+      url: null,
+      relevance:
+        "Closest match to 3D/immersive UI — cinematic scan overlays, real-time confidence displays, and complex animated states.",
+    },
+    {
+      id: "wmf-agent",
+      name: "WMF Agent Dashboard",
+      description:
+        "AI-powered customer service agent for Windsor Metal Finishing. Automated email classification, RFQ data extraction, and a human-in-the-loop approval workflow.",
+      outcome:
+        "Replaced a 4-hour manual quote review process with a 20-minute structured extraction and approval flow",
+      tech: [
+        "Next.js",
+        "TypeScript",
+        "Claude API",
+        "n8n",
+        "Microsoft Graph",
+        "Tailwind CSS",
+      ],
+      url: "https://wmf-agent-dashboard.vercel.app",
+      relevance:
+        "Real-time pipeline with structured state machines — similar complexity to the Vault access event system.",
+    },
+    {
+      id: "data-intelligence",
+      name: "Data Intelligence Platform",
+      description:
+        "Unified analytics dashboard pulling data from multiple sources with interactive charts, filterable views, and insight generation.",
+      outcome:
+        "Unified analytics dashboard pulling data from multiple sources with interactive charts and filterable insights",
+      tech: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Recharts"],
+      url: "https://data-intelligence-platform-sandy.vercel.app",
+      relevance:
+        "Multi-source data architecture and interactive visualization — foundation for the Convergence analytics layer.",
+    },
+    {
+      id: "outerbloom",
+      name: "Outerbloom — AI Social Coordination",
+      description:
+        "AI-driven matching pipeline connecting users, schedules, and venues with intelligent coordination and real-time state updates.",
+      outcome:
+        "AI-driven matching pipeline connecting users, schedules, and venues — reducing manual coordination overhead",
+      tech: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "AI pipeline"],
+      url: "https://outerbloom.vercel.app",
+      relevance:
+        "Real-time graph-like state — nodes, connections, and sync events mirror the Singularity mesh architecture.",
+    },
+  ],
+
   approach: [
     {
-      title: "Understand the Problem",
-      description: "Read the full requirements, identify the core pain point",
-    },
-    {
-      title: "Build a Working Demo",
+      step: "01",
+      title: "Prototype the 3D Environment",
       description:
-        "Show, don't tell — a live demo is worth 1000 words of proposal text",
+        "Three.js scene setup first — manifold particles, node meshes, camera controls. Working 3D canvas in the browser before a single data model is defined. You'll see it move, not just hear about it.",
+      timeline: "Week 1",
     },
     {
-      title: "Use Realistic Data",
+      step: "02",
+      title: "Build the Vault Architecture",
       description:
-        "Mock data that looks like real client data, not placeholder text",
+        "Encrypted artifact storage with AES-256/RSA-4096 access policies, audit event streaming, and role-based Architect/Sentinel/Vault Admin hierarchy. Firebase security rules enforced server-side.",
+      timeline: "Week 2–3",
     },
     {
-      title: "Ship Fast",
-      description: "MVP first, polish later. Get something deployed quickly",
+      step: "03",
+      title: "Integrate Firebase Real-Time Layer",
+      description:
+        "Node sync pulses, coherence score updates, breach attempt alerts — all pushed live via Firestore listeners. No polling. The manifold feels alive because the data underneath actually is.",
+      timeline: "Week 3–4",
+    },
+    {
+      step: "04",
+      title: "Polish the Cosmic-Noir Aesthetic",
+      description:
+        "Teal glow states, violet Vault accents, Space Grotesk headings, JetBrains Mono IDs. Every screen consistent — not a mix of design decisions but a coherent visual system you can hand off.",
+      timeline: "Week 5",
+    },
+    {
+      step: "05",
+      title: "Performance & Production Deploy",
+      description:
+        "Three.js bundle optimization (dynamic imports, geometry instancing), Firebase rule auditing, Vercel edge config. Production-ready code with TypeScript strict mode throughout.",
+      timeline: "Week 6",
     },
   ],
-  skillCategories: [
+
+  skills: [
+    {
+      name: "3D & Interactive",
+      items: ["Three.js", "WebGL", "Canvas API", "React Three Fiber", "GSAP"],
+    },
     {
       name: "Frontend",
-      skills: [
-        "TypeScript",
-        "React",
-        "Next.js",
-        "Tailwind CSS",
-        "shadcn/ui",
-        "Recharts",
-      ],
+      items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui"],
     },
     {
-      name: "Backend & APIs",
-      skills: [
+      name: "Backend & Real-Time",
+      items: [
         "Node.js",
+        "Firebase",
+        "Firestore",
+        "Firebase Auth",
         "REST APIs",
-        "Microsoft Graph",
-        "Stripe",
-        "Shopify API",
       ],
     },
     {
-      name: "AI & Automation",
-      skills: [
-        "Claude API",
-        "OpenAI API",
-        "n8n",
-        "Prompt Engineering",
-      ],
+      name: "Deployment & Tooling",
+      items: ["Vercel", "GitHub Actions", "TypeScript Strict", "ESLint"],
     },
   ],
-};
 
-export const portfolioProjects: PortfolioProject[] = [
-  {
-    id: "wmf-agent",
-    title: "WMF Agent Dashboard",
-    description:
-      "AI-powered customer service agent for manufacturing — email classification, RFQ extraction, human-in-the-loop approval",
-    tech: ["Next.js", "Claude API", "n8n", "Microsoft Graph"],
+  cta: {
+    headline: "Ready to bring the Singularity manifold to life.",
+    body: "The 3D environment, the Vault, the real-time mesh sync — I've thought through all of it. Six months of focused work, 30+ hours a week. Let's talk specifics.",
+    action: "Reply on Upwork to start",
+    availability: "Currently available for new projects",
   },
-  {
-    id: "lead-crm",
-    title: "Lead Intake CRM",
-    description:
-      "Lead intake form, CRM dashboard, lead scoring, pipeline management, and automation rules",
-    tech: ["Next.js", "TypeScript", "Tailwind", "shadcn/ui"],
-  },
-  {
-    id: "fleet-saas",
-    title: "Fleet Maintenance SaaS",
-    description:
-      "Asset tracking, work orders, preventive maintenance, inspections, parts inventory, analytics",
-    tech: ["Next.js", "Recharts", "TypeScript", "shadcn/ui"],
-  },
-];
+};

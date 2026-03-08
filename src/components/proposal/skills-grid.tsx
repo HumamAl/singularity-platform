@@ -1,6 +1,6 @@
 interface SkillCategory {
   name: string;
-  skills: string[];
+  items: string[];
 }
 
 interface SkillsGridProps {
@@ -9,15 +9,17 @@ interface SkillsGridProps {
 
 export function SkillsGrid({ categories }: SkillsGridProps) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
       {categories.map((category) => (
-        <div key={category.name} className="rounded-lg border border-border/60 bg-card p-4 shadow-[0_1px_2px_0_rgb(0_0_0/0.03)]">
-          <h3 className="text-sm font-medium mb-2">{category.name}</h3>
-          <div className="flex flex-wrap gap-1.5">
-            {category.skills.map((skill) => (
+        <div key={category.name}>
+          <p className="text-xs font-mono tracking-widest uppercase text-muted-foreground/60 mb-3">
+            {category.name}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {category.items.map((skill) => (
               <span
                 key={skill}
-                className="px-2 py-0.5 text-xs rounded-md bg-primary/10 text-primary"
+                className="px-2.5 py-1 text-xs rounded border border-border/40 text-foreground/70 hover:border-primary/40 hover:text-primary transition-colors duration-150"
               >
                 {skill}
               </span>
